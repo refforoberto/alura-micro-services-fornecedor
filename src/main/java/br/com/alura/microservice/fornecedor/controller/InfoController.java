@@ -20,15 +20,14 @@ public class InfoController {
 	private InfoService infoService;
 
 	@RequestMapping("/{estado}")
-	ResponseEntity<Object> obterInformacoesPorEstado(@PathVariable String estado) {
+	ResponseEntity<FornecedorDTO> obterInformacoesPorEstado(@PathVariable String estado){
 		try {
-			FornecedorEntity entity = infoService.obterInformacoesPorEstado(estado);
-
+			FornecedorEntity entity = infoService.obterInformacoesPorEstado(estado);			
 			return ResponseEntity.ok(FornecedorDTO.toDto(entity));
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body("Erro ao buscar fornecedor");
+			return ResponseEntity.badRequest().build();
 		}
 	}
 
